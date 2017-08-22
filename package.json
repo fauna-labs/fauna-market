@@ -6,6 +6,7 @@
     "FAUNADB_SECRET": "FAUNADB_SERVER_SECRET"
   },
   "dependencies": {
+    "faunadb": "^1.1.2",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-scripts": "1.0.11"

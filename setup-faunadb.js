@@ -2,7 +2,8 @@
 // Run it with `npm run setup-faunadb` to pull in the proper environment.
 // Note you'll need to set you FAUNADB_SERVER_SECRET in package.json first.
 
-import faunadb, {query as q} from 'faunadb';
+const faunadb = require('faunadb');
+const q = faunadb.query;
 
 const client = new faunadb.Client({
   secret: process.env.FAUNADB_SECRET
@@ -14,8 +15,7 @@ client.query(
     q.CreateClass({name: "purchases"}),
     q.CreateClass({name: "items"})
   )
-).then(()=>{
-  return client.query(
+).then(()=> client.query(
     q.Do(
       q.CreateIndex( {
         name: "players",
@@ -43,8 +43,7 @@ client.query(
           field: ["data", "owner"]
         }]
       })
-    )
-).then(()=>{
+))).then(()=>{
   const emojis = ["🐄","🐆","🐿","🐇","🐈","🐋","🐍","🐎","🐒","🐘",
                   "🐙","🐛","🐝","🐞","🐣","🐬","🐯","🐸","🐹","🐩"];
   return client.query(q.Do(
@@ -62,5 +61,5 @@ client.query(
         credits : Math.ceil(Math.random()*500)
       }
     }))
-  ))
+  ));
 }).catch((e) => console.log(e));
