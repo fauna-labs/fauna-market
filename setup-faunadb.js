@@ -26,9 +26,6 @@ client.query(
         source: q.Class("items"),
         terms: [{
           field: ["data", "for_sale"]
-        }],
-        values: [{
-          field: ["data", "price"]
         }]
       }),
       q.CreateIndex( {
@@ -44,22 +41,28 @@ client.query(
         }]
       })
 ))).then(()=>{
-  const emojis = ["🐄","🐆","🐿","🐇","🐈","🐋","🐍","🐎","🐒","🐘",
-                  "🐙","🐛","🐝","🐞","🐣","🐬","🐯","🐸","🐹","🐩"];
-  return client.query(q.Do(
-    // create items to sell
-    q.Foreach(emojis, (emoji) => q.Create(q.Class("items"), {
-      data : {
+  const animals = ["🐄","🐆","🐿","🐇","🐈","🐋","🐍","🐎","🐒","🐘",
+    "🐙","🐛","🐝","🐞","🐣","🐬","🐯","🐸","🐹","🐩"].map((emoji) => {
+      return {
         label : emoji,
         for_sale : true,
         price : Math.ceil(Math.random()*40)
-      }})),
-    // create players
-    q.Foreach(["Alice", "Bob", "Carol"], (name) => q.Create(q.Class("players"), {
-      data : {
-        name : name,
-        credits : Math.ceil(Math.random()*500)
       }
+  });
+  const players = ["Alice", "Bob", "Carol"].map((name) => {
+    return {
+      name : name,
+      credits : Math.ceil(Math.random()*500)
+    }
+  });
+
+  return client.query(q.Do(
+    // create items to sell
+    q.Foreach(animals, (animal) => q.Create(q.Class("items"), {
+      data : animal})),
+    // create players
+    q.Foreach(players, (player) => q.Create(q.Class("players"), {
+      data : player
     }))
   ));
-}).catch((e) => console.log(e));
+}).then(() => console.log("FaunaDB setup complete")).catch((e) => console.log(e));

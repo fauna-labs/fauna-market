@@ -2,7 +2,12 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
+import {getItemsForSale} from './model';
+
 class App extends Component {
+  componentDidMount() {
+    getItemsForSale().then((data) => console.log(data)).catch((e) => console.error(e))
+  }
   render() {
     return (
       <div className="App">
