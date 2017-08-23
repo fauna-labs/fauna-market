@@ -1,0 +1,9 @@
+.ForSale li {
+  display: inline-block;
+  list-style: none;
+  margin: 10px;
+}
+
+.ForSale li .label {
+  font-size: 500%;
+}

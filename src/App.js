@@ -2,22 +2,21 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-import {getItemsForSale} from './model';
+import ForSale from './ForSale';
+import Players from './Players';
 
 class App extends Component {
-  componentDidMount() {
-    getItemsForSale().then((data) => console.log(data)).catch((e) => console.error(e))
-  }
   render() {
     return (
       <div className="App">
         <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
+          <img src={logo} className="App-logo" alt="FaunaDB hummingbird logo" />
+          <h2>Emoji Exchange</h2>
         </div>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <div className="App-intro">
+          <ForSale model={this.props.model}/>
+          <Players model={this.props.model}/>
+        </div>
       </div>
     );
   }
