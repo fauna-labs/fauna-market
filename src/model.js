@@ -33,15 +33,22 @@ function listPlayers() {
   return client.query(
     q.Map(
       q.Paginate(q.Match(q.Index("players"))),
-      (row) => q.Select("data", q.Get(row))
+      (row) => q.Get(row)
     )
   );
 }
 
 function queryPlayerItems(players) {
+  const refs = players.map((p) => p.ref);
+  console.log("queryPlayerItems", refs);
+
+  // return client.query(
+  //   q.Paginate(q.Match(q.Index("items_by_owner"), players[0].ref))
+  // )
+
   return client.query(
-    q.Map(players, (player) => q.Select("data", q.Map(
-      q.Paginate(q.Match(q.Index("items_by_owner")), player.ref),
+    q.Map(refs, (ref) => q.Select("data", q.Map(
+      q.Paginate(q.Match(q.Index("items_by_owner"), ref)),
       (row) => q.Select("data", q.Get(row))
     )))
   );
