@@ -1,5 +1,16 @@
-.Players li {
+.Players li.Player {
+  display: inline-block;
+  list-style: none;
+  margin: 30px;
+  width:25%;
+}
+
+.ownedItems li {
   display: inline-block;
   list-style: none;
   margin: 10px;
+}
+
+.ownedItems li .label {
+  font-size: 200%;
 }

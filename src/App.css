@@ -17,3 +17,13 @@
 .App-intro {
   font-size: large;
 }
+
+.App .info {
+  font-family: helvetica, sans-serif;
+  font-size:500%;
+  font-weight: bolder;
+  color: #1f5db0;
+  float:left;
+  position: absolute;
+  margin-left:40px;
+}
