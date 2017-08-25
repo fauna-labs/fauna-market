@@ -58,7 +58,10 @@ class App extends Component {
           network failure. So you know that any data you read or write to FaunaDB
           is consistent, taking the guesswork out of writing correct applications.
         </p>
-        <p>Click here to return to the game.</p>
+        <h2>How To Play</h2>
+        <p>Drag For-Sale Items to Players to sell that item to the player (if they have sufficient funds).</p>
+        <p>Click on small items in Player's inventory to set their price and sale status.</p>
+        <p>Click any text to return to the game.</p>
         </div>
         </ReactModal>
           <div className="info" onClick={this.openInfo}>

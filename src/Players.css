@@ -14,3 +14,7 @@
 .ownedItems li .label {
   font-size: 200%;
 }
+
+.ownedItems .forSale {
+  background: #ffa;
+}

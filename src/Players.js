@@ -50,9 +50,14 @@ class Player extends Component {
     this.openSaleSettings = this.openSaleSettings.bind(this);
     this.updatePrice = this.updatePrice.bind(this);
     this.sellForPrice = this.sellForPrice.bind(this);
+    this.notForSale = this.notForSale.bind(this);
   }
   sellForPrice() {
     this.props.model.makeForSale(this.state.itemToSell, this.state.sellPrice, true);
+    this.setState({showModal: false});
+  }
+  notForSale() {
+    this.props.model.makeForSale(this.state.itemToSell, this.state.sellPrice, false);
     this.setState({showModal: false});
   }
   updatePrice(event) {
@@ -81,14 +86,19 @@ class Player extends Component {
          <br/>
          Owner: {player.data.name}
          <br/>
+         For Sale: {(itemToSell.data.for_sale||"").toString()}
+         <br/>
          Price: <input value={this.state.sellPrice} onChange={this.updatePrice.bind(this)}/>
+         <br/>
          <a href="#" onClick={this.sellForPrice}>Make For Sale</a>
+         <br/>
+         <a href="#" onClick={this.notForSale}>Make Not For Sale</a>
       </ReactModal>
       <h4>{player.data.name}</h4>
       {player.data.credits}
       <ul className="ownedItems">
         {items.map((item) =>
-          <li key={item.data.label}>
+          <li key={item.data.label} className={item.data.for_sale ? "forSale" : "isnotForSale"}>
             <div className="label" onClick={this.openSaleSettings.bind(this, item)}>{item.data.label}</div>
           </li>
         )}
