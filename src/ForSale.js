@@ -10,9 +10,9 @@ class ForSaleList extends Component {
         <h3>Items for Sale</h3>
         <ul>
         {this.props.model.items.map((item) =>
-          <li key={item.label}>
-            <DraggableForSale label={item.label}/>
-            <br/>¤{item.price}
+          <li key={item.data.label}>
+            <DraggableForSale model={this.props.model} label={item.data.label} item={item}/>
+            <br/>¤{item.data.price}
           </li>
         )}
         </ul>
@@ -27,10 +27,29 @@ export default ForSaleList;
 const forSaleSource = {
   beginDrag(props) {
     return {
-      label: props.label
+      label: props.label,
+      item : props.item
     };
+  },
+  endDrag(props, monitor) {
+    const result = monitor.getDropResult();
+    console.log('endDrag', props, result)
+    if (result) {
+      makeTransaction(props.model, props.item, result.player)
+    }
+    return {
+      label: props.label,
+      item : props.item
+    }
   }
 };
+
+function makeTransaction(model, item, player) {
+  console.log('makeTransaction', model, item, player)
+  model.sell(item, player).catch((e) => {
+    console.error(e);
+  })
+}
 
 /**
  * Specifies the props to inject into your component.
@@ -64,4 +83,4 @@ class ForSale extends Component {
 ForSale.propTypes = propTypes;
 
 // Export the wrapped component:
-const DraggableForSale =  DragSource("ForSale", forSaleSource, collect)(ForSale);
+const DraggableForSale =  DragSource("forSale", forSaleSource, collect)(ForSale);
