@@ -6,6 +6,7 @@ const client = new faunadb.Client({
 
 export default class Model {
   constructor () {
+    this.message = "";
     this.onChanges = [];
     this.items = [];
     this.players = [];
@@ -17,7 +18,7 @@ export default class Model {
     console.log("inform", this);
     this.onChanges.forEach((cb) => cb());
   }
-  refresh() {
+  refresh(message) {
     Promise.all([
       queryItemsForSale().then(({data: items}) => this.items = items),
       listPlayers().then(({data: players}) => {
@@ -25,10 +26,22 @@ export default class Model {
         return queryPlayerItems(this.players)
           .then((ownedItems) => this.ownedItems = ownedItems);
       })
-    ]).then(() => this.inform());
+    ]).then(() => {
+      this.message = message || "";
+      this.inform();
+    });
   }
   sell(item, player) {
-    return sellItemToPlayer(item, player).then(() => this.refresh());
+    return sellItemToPlayer(item, player).then((r) => {
+      this.refresh(r);
+      return r;
+    });
+  }
+  makeForSale(item, price, isForSale) {
+    return runMakeForSaleQuery(item, price, isForSale).then((r) => {
+      this.refresh();
+      return r;
+    });
   }
 }
 
@@ -39,6 +52,15 @@ function listPlayers() {
       (row) => q.Get(row)
     )
   );
+}
+
+function runMakeForSaleQuery(item, price, isForSale) {
+  return client.query(q.Update(item.ref, {
+    data : {
+      price : parseInt(price, 10),
+      for_sale : isForSale
+    }
+  }))
 }
 
 function sellItemToPlayer(item, player) {

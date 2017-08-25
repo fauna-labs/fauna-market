@@ -64,6 +64,7 @@ class App extends Component {
           <div className="info" onClick={this.openInfo}>
           ?&#x20dd;
           </div>
+          {this.props.model.message}
           <ForSale model={this.props.model}/>
           <Players model={this.props.model}/>
         </div>

@@ -46,8 +46,8 @@ const forSaleSource = {
 
 function makeTransaction(model, item, player) {
   console.log('makeTransaction', model, item, player)
-  model.sell(item, player).catch((e) => {
-    console.error(e);
+  model.sell(item, player).then((r) => {
+    console.log(r);
   })
 }
 
