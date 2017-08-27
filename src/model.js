@@ -31,7 +31,14 @@ export default class Model {
       this.inform();
     });
   }
+  setSellingState(item, player) {
+    console.log("setSellingState", this.items.indexOf(item, this.items), item, this.items)
+    this.items.splice(this.items.indexOf(item, this.items), 1);
+  }
   sell(item, player) {
+    // todo set preliminary "waiting" state of success and be ready to remove it on error.
+    this.setSellingState(item, player);
+    this.inform();
     return sellItemToPlayer(item, player).then((r) => {
       this.refresh(r);
       return r;

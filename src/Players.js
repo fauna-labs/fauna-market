@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import { DropTarget } from 'react-dnd';
 import './Players.css';
 import ReactModal from 'react-modal';
@@ -75,7 +74,7 @@ class Player extends Component {
     })
   }
   render() {
-    const { forSale, player, key, items, connectDropTarget, isOver } = this.props;
+    const { player, key, items, connectDropTarget } = this.props;
     const itemToSell = this.state.itemToSell;
     return connectDropTarget(
     <li className="Player" key={key}>
@@ -90,9 +89,9 @@ class Player extends Component {
          <br/>
          Price: <input value={this.state.sellPrice} onChange={this.updatePrice.bind(this)}/>
          <br/>
-         <a href="#" onClick={this.sellForPrice}>Make For Sale</a>
+         <a href="#sell" onClick={this.sellForPrice}>Make For Sale</a>
          <br/>
-         <a href="#" onClick={this.notForSale}>Make Not For Sale</a>
+         <a href="#notsell" onClick={this.notForSale}>Make Not For Sale</a>
       </ReactModal>
       <h4>{player.data.name}</h4>
       {player.data.credits}
