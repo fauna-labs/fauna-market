@@ -7,7 +7,7 @@ import ReactModal from 'react-modal';
 
 const playerTarget = {
   drop(props) {
-    console.log("drop", props);
+    console.log("drop playerTarget", props);
     return props;
   }
 };
@@ -124,6 +124,8 @@ const inventorySource = {
     console.log('endDrag', props, result)
     if (result) {
       console.log("dragged", props.model, props.item, result)
+      var price = prompt("Choose a sale price.")
+      props.model.makeForSale(props.item, parseInt(price, 10), true);
     }
     return {
       label: props.label,

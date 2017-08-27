@@ -1,11 +1,29 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
+import { DropTarget } from 'react-dnd';
+
 import './ForSale.css';
+
+const forSaleListTarget = {
+  drop(props) {
+    console.log("drop forSaleListTarget", props);
+    return props;
+  }
+};
+
+function collectForSaleList(connect, monitor) {
+  return {
+    connectDropTarget: connect.dropTarget(),
+    isOver: monitor.isOver()
+  };
+}
 
 class ForSaleList extends Component {
   render() {
-    return (
+    const { connectDropTarget } = this.props;
+
+    return connectDropTarget(
       <div className="ForSale">
         <h3>Items for Sale</h3>
         <ul>
@@ -21,7 +39,10 @@ class ForSaleList extends Component {
   }
 }
 
-export default ForSaleList;
+const DropTargetForSaleList = DropTarget("inventory", forSaleListTarget, collectForSaleList)(ForSaleList);
+
+
+export default DropTargetForSaleList;
 
 
 const forSaleSource = {
@@ -33,7 +54,7 @@ const forSaleSource = {
   },
   endDrag(props, monitor) {
     const result = monitor.getDropResult();
-    console.log('endDrag', props, result)
+    console.log('endDrag forSaleSource', props, result)
     if (result) {
       makeTransaction(props.model, props.item, result.player)
     }
