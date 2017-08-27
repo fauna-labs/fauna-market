@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import { DragSource } from 'react-dnd';
 import { DropTarget } from 'react-dnd';
+import PropTypes from 'prop-types';
 import './Players.css';
 import ReactModal from 'react-modal';
 
@@ -98,7 +100,7 @@ class Player extends Component {
       <ul className="ownedItems">
         {items.map((item) =>
           <li key={item.data.label} className={item.data.for_sale ? "forSale" : "isnotForSale"}>
-            <div className="label" onClick={this.openSaleSettings.bind(this, item)}>{item.data.label}</div>
+          <DraggableInventory  label={item.data.label} item={item} model={this.props.model}/>
           </li>
         )}
       </ul>
@@ -107,3 +109,62 @@ class Player extends Component {
 }
 
 const DropTargetPlayer = DropTarget("forSale", playerTarget, collect)(Player);
+
+
+
+const inventorySource = {
+  beginDrag(props) {
+    return {
+      label: props.label,
+      item : props.item
+    };
+  },
+  endDrag(props, monitor) {
+    const result = monitor.getDropResult();
+    console.log('endDrag', props, result)
+    if (result) {
+      console.log("dragged", props.model, props.item, result)
+    }
+    return {
+      label: props.label,
+      item : props.item
+    }
+  }
+};
+
+/**
+ * Specifies the props to inject into your component.
+ */
+function collectInventory(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  };
+}
+
+const propTypes = {
+  label: PropTypes.string.isRequired,
+
+  // Injected by React DnD:
+  isDragging: PropTypes.bool.isRequired,
+  connectDragSource: PropTypes.func.isRequired
+};
+
+// <div className="label" onClick={this.openSaleSettings.bind(this, item)}>{item.data.label}</div>
+
+
+class Inventory extends Component {
+  render() {
+    const { isDragging, connectDragSource, label } = this.props;
+    return connectDragSource(
+      <div style={{ opacity: isDragging ? 0.5 : 1 }}>
+        <div className="label">{label}</div>
+      </div>
+    );
+  }
+}
+
+Inventory.propTypes = propTypes;
+
+// Export the wrapped component:
+const DraggableInventory =  DragSource("inventory", inventorySource, collectInventory)(Inventory);
