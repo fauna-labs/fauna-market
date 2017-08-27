@@ -82,37 +82,47 @@ function sellItemToPlayer(item, player) {
       seller : q.Get(q.Select(["data", "owner"], q.Var("item")))
     }, q.If(q.Not(q.Var("isForSale")),
         "purchase failed: item not for sale",
-        // check balance
-        q.If(q.LT(q.Var("buyerBalance"), q.Var("itemPrice")),
-          "purchase failed: insufficient funds",
-
-          // all clear! record the purchase, update the buyer, seller and item.
+        q.If(q.Equals(q.Select("ref", q.Var("buyer")), q.Select("ref", q.Var("seller"))),
           q.Do(
-            q.Create(q.Class("purchases"), {
-              data : {
-                item : q.Select("ref", q.Var("item")),
-                price : q.Var("itemPrice"),
-                buyer : q.Select("ref", q.Var("buyer")),
-                seller : q.Select("ref", q.Var("seller"))
-              }
-            }),
-            q.Update(q.Select("ref", q.Var("buyer")), {
-              data : {
-                credits : q.Subtract(q.Var("buyerBalance"), q.Var("itemPrice"))
-              }
-            }),
-            q.Update(q.Select("ref", q.Var("seller")), {
-              data : {
-                credits : q.Add(q.Select(["data", "credits"], q.Var("seller")), q.Var("itemPrice"))
-              }
-            }),
             q.Update(q.Select("ref", q.Var("item")), {
               data : {
-                owner : q.Select("ref", q.Var("buyer")),
                 for_sale : false
               }
             }),
-            "purchase success"
+            "item removed from sale"
+          ),
+          // check balance
+          q.If(q.LT(q.Var("buyerBalance"), q.Var("itemPrice")),
+            "purchase failed: insufficient funds",
+
+            // all clear! record the purchase, update the buyer, seller and item.
+            q.Do(
+              q.Create(q.Class("purchases"), {
+                data : {
+                  item : q.Select("ref", q.Var("item")),
+                  price : q.Var("itemPrice"),
+                  buyer : q.Select("ref", q.Var("buyer")),
+                  seller : q.Select("ref", q.Var("seller"))
+                }
+              }),
+              q.Update(q.Select("ref", q.Var("buyer")), {
+                data : {
+                  credits : q.Subtract(q.Var("buyerBalance"), q.Var("itemPrice"))
+                }
+              }),
+              q.Update(q.Select("ref", q.Var("seller")), {
+                data : {
+                  credits : q.Add(q.Select(["data", "credits"], q.Var("seller")), q.Var("itemPrice"))
+                }
+              }),
+              q.Update(q.Select("ref", q.Var("item")), {
+                data : {
+                  owner : q.Select("ref", q.Var("buyer")),
+                  for_sale : false
+                }
+              }),
+              "purchase success"
+            )
           )
         )
        )))
