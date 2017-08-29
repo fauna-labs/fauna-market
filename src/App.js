@@ -7,6 +7,7 @@ import ReactModal from 'react-modal';
 
 import ForSale from './ForSale';
 import Players from './Players';
+import PurchaseLog from './PurchaseLog';
 
 class App extends Component {
   constructor () {
@@ -68,6 +69,7 @@ class App extends Component {
           ?&#x20dd;
           </div>
           {this.props.model.message}
+          <PurchaseLog model={this.props.model}/>
           <ForSale model={this.props.model}/>
           <Players model={this.props.model}/>
         </div>

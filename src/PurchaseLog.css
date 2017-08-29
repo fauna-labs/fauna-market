@@ -1,0 +1,10 @@
+.PurchaseLog {
+  float:right;
+  width: 20%;
+  text-align: left;
+}
+
+.PurchaseLog li {
+  display: inline-block;
+  list-style: none;
+}

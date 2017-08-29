@@ -10,6 +10,7 @@ export default class Model {
     this.onChanges = [];
     this.items = [];
     this.players = [];
+    this.purchases = [];
   }
   subscribe(onChange) {
     this.onChanges.push(onChange);
@@ -25,7 +26,8 @@ export default class Model {
         this.players = players;
         return queryPlayerItems(this.players)
           .then((ownedItems) => this.ownedItems = ownedItems);
-      })
+      }),
+      listPurchases().then(({data : purchases}) => this.purchases = purchases.reverse())
     ]).then(() => {
       this.message = message || "";
       this.inform();
@@ -50,6 +52,28 @@ export default class Model {
       return r;
     });
   }
+}
+
+function listPurchases() {
+  return client.query(
+    q.Map(
+      q.Paginate(q.Match(q.Index("purchases")), {before : null}),
+      (row) => q.Let({row:q.Get(row)},
+        q.Let({
+          buyer : q.Get(q.Select(["data","buyer"], q.Var("row"))),
+          seller : q.Get(q.Select(["data","seller"], q.Var("row"))),
+          item : q.Get(q.Select(["data","item"], q.Var("row")))
+        },
+        {
+          buyer : q.Select(["data","name"], q.Var("buyer")),
+          seller : q.Select(["data","name"], q.Var("seller")),
+          price : q.Select(["data","price"], q.Var("item")),
+          label : q.Select(["data","label"], q.Var("item")),
+          key : q.Select(["ref"], q.Var("row"))
+        }
+      ))
+    )
+  );
 }
 
 function listPlayers() {

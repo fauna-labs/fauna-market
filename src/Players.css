@@ -1,8 +1,8 @@
 .Players li.Player {
   display: inline-block;
   list-style: none;
-  margin: 30px;
-  width:25%;
+  margin: 20px;
+  width:20%;
 }
 
 .ownedItems li {
