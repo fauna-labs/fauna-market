@@ -1,7 +1,7 @@
 import faunadb, {query as q} from 'faunadb';
 
 const client = new faunadb.Client({
-  secret: process.env.REACT_APP_FAUNADB_SECRET
+  secret: process.env.REACT_APP_FAUNADB_SERVER_SECRET
 });
 
 export default class Model {
@@ -46,7 +46,12 @@ export default class Model {
       return r;
     });
   }
-  makeForSale(item, price, isForSale) {
+  makeForSale(item, stringPrice, isForSale) {
+    const price = parseInt(stringPrice, 10)
+    if (isNaN(price))  {
+      this.refresh("Invalid price: "+stringPrice);
+      return Promise.reject("Invalid price: "+stringPrice);
+    }
     return runMakeForSaleQuery(item, price, isForSale).then((r) => {
       this.refresh();
       return r;
@@ -85,10 +90,10 @@ function listPlayers() {
   );
 }
 
-function runMakeForSaleQuery(item, price, isForSale) {
+function runMakeForSaleQuery(item, newPrice, isForSale) {
   return client.query(q.Update(item.ref, {
     data : {
-      price : parseInt(price, 10),
+      price : newPrice,
       for_sale : isForSale
     }
   }))

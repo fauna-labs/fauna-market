@@ -125,7 +125,7 @@ const inventorySource = {
     if (result) {
       console.log("dragged", props.model, props.item, result)
       var price = prompt("Choose a sale price.")
-      props.model.makeForSale(props.item, parseInt(price, 10), true);
+      props.model.makeForSale(props.item, price, true);
     }
     return {
       label: props.label,

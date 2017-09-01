@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "config": {
-    "FAUNADB_SECRET": "FAUNADB_SERVER_SECRET"
+    "FAUNADB_SERVER_SECRET": "CHANGEME",
+    "FAUNADB_ADMIN_SECRET" : "CHANGEME"
   },
   "dependencies": {
     "faunadb": "^1.1.2",
@@ -16,10 +17,10 @@
     "react-scripts": "1.0.11"
   },
   "scripts": {
-    "start": "REACT_APP_FAUNADB_SECRET=$npm_package_config_FAUNADB_SECRET react-scripts start",
-    "build": "REACT_APP_FAUNADB_SECRET=$npm_package_config_FAUNADB_SECRET react-scripts build",
+    "start": "REACT_APP_FAUNADB_SERVER_SECRET=$npm_package_config_FAUNADB_SERVER_SECRET react-scripts start",
+    "build": "REACT_APP_FAUNADB_SERVER_SECRET=$npm_package_config_FAUNADB_SERVER_SECRET react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "setup-faunadb": "FAUNADB_SECRET=$npm_package_config_FAUNADB_SECRET node setup-faunadb.js"
+    "setup-faunadb": "FAUNADB_ADMIN_SECRET=$npm_package_config_FAUNADB_ADMIN_SECRET node setup-faunadb.js"
   }
 }
