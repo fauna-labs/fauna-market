@@ -48,7 +48,7 @@ export default class Model {
   }
   makeForSale(item, stringPrice, isForSale) {
     const price = parseInt(stringPrice, 10)
-    if (isNaN(price))  {
+    if (isNaN(price) || price < 0)  {
       this.refresh("Invalid price: "+stringPrice);
       return Promise.reject("Invalid price: "+stringPrice);
     }
