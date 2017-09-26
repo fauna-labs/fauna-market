@@ -12,7 +12,10 @@ function render() {
   ReactDOM.render(<App model={model}/>, document.getElementById('root'));
 }
 window._model = model;
-model.subscribe(render);
 render();
-model.refresh();
+
+model.setupSession().then(() => {
+  model.subscribe(render);
+  model.refresh();
+})
 registerServiceWorker();

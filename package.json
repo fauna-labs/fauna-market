@@ -3,8 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "config": {
-    "FAUNADB_SERVER_SECRET": "CHANGEME",
-    "FAUNADB_ADMIN_SECRET" : "CHANGEME"
+    "SESSION_ENDPOINT" : "https://g7fv59q8y8.execute-api.us-east-1.amazonaws.com/dev/new-session"
   },
   "dependencies": {
     "faunadb": "^1.1.2",
@@ -17,10 +16,9 @@
     "react-scripts": "1.0.11"
   },
   "scripts": {
-    "start": "REACT_APP_FAUNADB_SERVER_SECRET=$npm_package_config_FAUNADB_SERVER_SECRET react-scripts start",
-    "build": "REACT_APP_FAUNADB_SERVER_SECRET=$npm_package_config_FAUNADB_SERVER_SECRET react-scripts build",
+    "start": "REACT_APP_SESSION_ENDPOINT=$npm_package_config_SESSION_ENDPOINT react-scripts start",
+    "build": "REACT_APP_SESSION_ENDPOINT=$npm_package_config_SESSION_ENDPOINT react-scripts build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject",
-    "setup-faunadb": "FAUNADB_ADMIN_SECRET=$npm_package_config_FAUNADB_ADMIN_SECRET node setup-faunadb.js"
+    "eject": "react-scripts eject"
   }
 }

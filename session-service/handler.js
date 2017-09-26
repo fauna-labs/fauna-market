@@ -6,7 +6,7 @@ const q = faunadb.query;
 const adminClient = new faunadb.Client({
   secret: process.env.FAUNADB_ADMIN_SECRET
 });
-console.log("FAUNADB_ADMIN_SECRET ",process.env)
+// console.log("FAUNADB_ADMIN_SECRET ",process.env)
 
 module.exports.newSession = (event, context, callback) => {
   const response = {
