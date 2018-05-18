@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "config": {
-    "SESSION_ENDPOINT" : "https://g7fv59q8y8.execute-api.us-east-1.amazonaws.com/dev/new-session"
+    "SESSION_ENDPOINT": "https://g7fv59q8y8.execute-api.us-east-1.amazonaws.com/dev/new-session"
   },
   "dependencies": {
     "faunadb": "^1.1.2",
@@ -12,13 +12,15 @@
     "react-dnd-html5-backend": "^2.4.1",
     "react-dom": "^15.6.1",
     "react-draggable": "^3.0.2",
-    "react-modal": "^2.2.4",
-    "react-scripts": "1.0.11"
+    "react-modal": "^2.2.4"
   },
   "scripts": {
     "start": "REACT_APP_SESSION_ENDPOINT=$npm_package_config_SESSION_ENDPOINT react-scripts start",
     "build": "REACT_APP_SESSION_ENDPOINT=$npm_package_config_SESSION_ENDPOINT react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
+  },
+  "devDependencies": {
+    "react-scripts": "^1.1.4"
   }
 }
