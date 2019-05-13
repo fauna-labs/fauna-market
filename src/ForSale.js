@@ -21,15 +21,14 @@ function collectForSaleList(connect, monitor) {
 
 class ForSaleList extends Component {
   render() {
-    const { connectDropTarget } = this.props;
-
+    const { connectDropTarget, items, model } = this.props;
     return connectDropTarget(
       <div className="ForSale">
         <h3>Items for Sale</h3>
         <ul>
-        {this.props.model.items.map((item) =>
+        {items.map((item) =>
           <li key={item.data.label}>
-            <DraggableForSale model={this.props.model} label={item.data.label} item={item}/>
+            <DraggableForSale model={model} label={item.data.label} item={item}/>
             <br/>¤{item.data.price}
           </li>
         )}
