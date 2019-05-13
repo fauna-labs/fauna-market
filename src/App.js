@@ -73,7 +73,7 @@ class App extends Component {
             {this.props.model.message}
           </p>
           <PurchaseLog model={this.props.model}/>
-          <ForSale model={this.props.model}/>
+          <ForSale model={this.props.model} items={this.props.model.items}/>
           <Players model={this.props.model}/>
         </div>
       </div>
