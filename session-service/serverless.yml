@@ -10,10 +10,10 @@ service: faunadb-animal-exchange
 # The `provider` block defines where your service will be deployed
 provider:
   name: aws
-  runtime: nodejs6.10
+  runtime: nodejs8.10
   timeout: 20
   environment:
-    FAUNADB_ADMIN_SECRET: FAUNADB_ADMIN_SECRET
+    FAUNADB_ADMIN_SECRET: fnACcffQlVACAqX_OVym2t2IAOr1yqEmi0RSxHqJ
 
 # The `functions` block defines what code to deploy
 functions:
