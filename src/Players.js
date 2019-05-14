@@ -159,7 +159,7 @@ class Inventory extends Component {
     const { isDragging, connectDragSource, label } = this.props;
     return connectDragSource(
       <div style={{ opacity: isDragging ? 0.5 : 1 }}>
-        <div className="label">{label}<span class="sell">Sell</span></div>
+        <div className="label">{label}<span className="sell">Sell</span></div>
       </div>
     );
   }

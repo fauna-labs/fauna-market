@@ -213,12 +213,18 @@ export default class Model {
     return this.client.query(
       q.Map(
         q.Paginate(q.Match(q.Index("items_for_sale"), true)),
-        (row) => 
-        q.Let({row : q.Get(row)}, {data : {
-          label : q.Select(["data","label"], q.Var("row")),
-          price : q.Select(["data","price"], q.Var("row")),
-          owner_name : q.Select(["data","name"], q.Get(q.Select(["data","owner"], q.Var("row"))))
-        }})
+        (row) =>
+        q.Let({doc : q.Get(row)}, {
+          ref : q.Select(["ref"], q.Var("doc")),
+          data : {
+            label : q.Select(["data","label"], q.Var("doc")),
+            price : q.Select(["data","price"], q.Var("doc")),
+            owner : q.Select(["data","owner"], q.Var("doc")),
+            owner_name :
+              q.Select(["data","name"],
+              q.Get(q.Select(["data","owner"], q.Var("doc"))))
+          }
+        })
       )
     );
   }
