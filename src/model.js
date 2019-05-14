@@ -87,12 +87,13 @@ export default class Model {
           q.Let({
             buyer : q.Get(q.Select(["data","buyer"], q.Var("row"))),
             seller : q.Get(q.Select(["data","seller"], q.Var("row"))),
+            price : q.Select(["data","price"], q.Var("row")),
             item : q.Get(q.Select(["data","item"], q.Var("row")))
           },
           {
             buyer : q.Select(["data","name"], q.Var("buyer")),
             seller : q.Select(["data","name"], q.Var("seller")),
-            price : q.Select(["data","price"], q.Var("item")),
+            price : q.Var("price"),
             label : q.Select(["data","label"], q.Var("item")),
             key : q.Select(["ref"], q.Var("row"))
           }

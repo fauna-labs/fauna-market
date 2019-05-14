@@ -13,6 +13,7 @@ module.exports.newSession = (event, context, callback) => {
     statusCode: 200,
     headers: {
       'Access-Control-Allow-Origin': '*', // Required for CORS support to work
+      'Access-Control-Allow-Credentials': true
     }
   };
 
@@ -24,7 +25,7 @@ module.exports.newSession = (event, context, callback) => {
     callback(null, response);
   }).catch((error) => {
     response.statusCode = 500;
-    reponse.body = JSON.stringify(error);
+    response.body = JSON.stringify(error);
     callback(null, response);
   })
 };
@@ -92,8 +93,11 @@ function makeSession() {
       );
     }).then((players) => {
       // create items to sell
-      const animals = ["🐄","🐆","🐿","🐇","🐈","🐋","🐍","🐎","🐒","🐘",
-        "🐙","🐛","🐝","🐞","🐣","🐬","🐯","🐸","🐹","🐩"].map((emoji) => {
+      //
+
+
+      const animals = ["⌚️", "📸", "📺", "🔭", "💎", "🎥",
+        "🏰", "🏍", "🛴", "🚲", "🎸", "🎻", "🛹", "🌂"].map((emoji) => {
           return {
             label : emoji,
             for_sale : Math.random() < 0.2,
