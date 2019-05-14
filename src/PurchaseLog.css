@@ -1,10 +1,7 @@
 .PurchaseLog {
-  float:right;
-  width: 20%;
-  text-align: left;
+  width: 180px;
 }
 
 .PurchaseLog li {
-  display: inline-block;
   list-style: none;
 }

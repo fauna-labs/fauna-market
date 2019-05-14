@@ -25,11 +25,12 @@ class ForSaleList extends Component {
     return connectDropTarget(
       <div className="ForSale">
         <h3>Items for Sale</h3>
-        <ul>
+        <ul className="itemsForSale">
         {items.map((item) =>
           <li key={item.data.label}>
             <DraggableForSale model={model} label={item.data.label} item={item}/>
-            <br/>¤{item.data.price}
+            <div>Price: ${item.data.price}</div>
+            <div>Seller: {item.data.owner_name}</div>
           </li>
         )}
         </ul>

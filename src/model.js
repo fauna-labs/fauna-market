@@ -204,7 +204,7 @@ export default class Model {
     return this.client.query(
       q.Map(refs, (ref) => q.Select("data", q.Map(
         q.Paginate(q.Match(q.Index("items_by_owner"), ref)),
-        (row) => q.Get(row)
+        (row) =>  q.Get(row)
       )))
     );
   }
@@ -213,7 +213,12 @@ export default class Model {
     return this.client.query(
       q.Map(
         q.Paginate(q.Match(q.Index("items_for_sale"), true)),
-        (row) => q.Get(row)
+        (row) => 
+        q.Let({row : q.Get(row)}, {data : {
+          label : q.Select(["data","label"], q.Var("row")),
+          price : q.Select(["data","price"], q.Var("row")),
+          owner_name : q.Select(["data","name"], q.Get(q.Select(["data","owner"], q.Var("row"))))
+        }})
       )
     );
   }
