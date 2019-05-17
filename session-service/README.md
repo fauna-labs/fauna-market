@@ -10,11 +10,11 @@ practices, so anyone with the database secret could vandalize the data. The
 database secret is available to the browser and made part of the URL, so anyone
 who knows about a demo session database can run any query.
 
-However, in the absence of vandalism, this setup allows the browser to illustrate
-queries that would usually be run in a more secure context, making for a better
-demo. This session service also illustrates a useful patter in FaunaDB: using a
-serverless function with privileged access to the database to dole out
-keys with lower levels of access.
+However, in the absence of vandalism, this setup allows the browser to
+illustrate queries that would usually be run in a more secure context, making
+for a better demo. This session service also illustrates a useful SaaS pattern
+in FaunaDB: using a serverless function with privileged access to the database
+to dole out keys with lower levels of access.
 
 This repo ships with the app pointed at a copy of this service managed by Fauna.
 That means you can hack on the app all you want without even needing a FaunaDB
@@ -60,7 +60,7 @@ This database will hold databases which correspond to sessions in our distribute
 
 ### Deploying the Service
 
-Now that you've configred `serverless.yml` deploying the service is a matter of running:
+Now that you've configured `serverless.yml` deploying the service is a matter of running:
 
 ```sh
 serverless deploy
