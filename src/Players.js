@@ -24,8 +24,7 @@ class Players extends Component {
 
     return (
       <div className="Players">
-        <h3>Players</h3>
-        <ul>
+        <ul className="playerList">
         {this.props.model.players.map((player, i) =>
           <DropTargetPlayer key={player.data.name} model={this.props.model} player={player} items={this.props.model.ownedItems[i]} />
         )}
@@ -96,11 +95,11 @@ class Player extends Component {
          <a href="#notsell" onClick={this.notForSale}>Make Not For Sale</a>
       </ReactModal>
       <h4>{player.data.name}</h4>
-      {player.data.credits}
+      <p>Balance: ${player.data.credits}</p>
       <ul className="ownedItems">
         {items.map((item) =>
           <li key={item.data.label} className={item.data.for_sale ? "forSale" : "isnotForSale"}>
-          <DraggableInventory  label={item.data.label} item={item} model={this.props.model}/>
+            <DraggableInventory value="sell" label={item.data.label} item={item} model={this.props.model}/>
           </li>
         )}
       </ul>
@@ -160,7 +159,7 @@ class Inventory extends Component {
     const { isDragging, connectDragSource, label } = this.props;
     return connectDragSource(
       <div style={{ opacity: isDragging ? 0.5 : 1 }}>
-        <div className="label">{label}</div>
+        <div className="label">{label}<span className="sell">Sell</span></div>
       </div>
     );
   }

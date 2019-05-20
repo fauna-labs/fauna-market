@@ -27,55 +27,68 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="FaunaDB hummingbird logo" />
-          <h2>Animal Exchange</h2>
-        </div>
-        <div className="App-intro">
-        <ReactModal
-           isOpen={this.state.showModal}
-           contentLabel="Globally Consistent Transactions"
-        >
-        <div onClick={this.closeInfo}>
-        <h1>Globally Consistent Transactions</h1>
-        <p>
-          In this demo, selling an item involves updating a handful of database records.
-          If any one of these updates were to fail, it could leave the database in an
-          inconsistent state. When you are buying and selling, you have to be able to
-          trust your database.
-        </p>
-        <p>
-          The transaction includes these operations:
-          <ul>
-            <li>Check the credit balance of the purchasing player to ensure they have available funds.</li>
-            <li>Check that the item is for sale.</li>
-            <li>Update the balances of the selling player and the purchasing player.</li>
-            <li>Update the item with the new owner.</li>
-            <li>Write a purchase record.</li>
-          </ul>
-          If any one of these operations fails, for instance because the player is
-          making multiple trades at the same time and exceeds their balance, the
-          entire transaction must fail. This also holds true in cases of hardware or
-          network failure. So you know that any data you read or write to FaunaDB
-          is consistent, taking the guesswork out of writing correct applications.
-        </p>
-        <h2>How To Play</h2>
-        <p>Drag For-Sale Items to Players to sell that item to the player (if they have sufficient funds).</p>
-        <p>Click on small items in Player's inventory to set their price and sale status.</p>
-        <p>Click any text to return to the game.</p>
-        </div>
-        </ReactModal>
-          <div className="info" onClick={this.openInfo}>
-          ?&#x20dd;
+        <header>
+          <div className="brand">
+            <img src={logo} className="App-logo" alt="FaunaDB hummingbird logo" />
+            <p>Animal Exchange</p>
           </div>
+          <div className="utility">
+            <div className="info" onClick={this.openInfo}>
+              About
+            </div>
+          </div>
+        </header>
+        <main>
+          <ReactModal
+            isOpen={this.state.showModal}
+            contentLabel="Globally Consistent Transactions"
+          >
+          <div>
+            <div className="modal-header">
+              <h2>Globally Consistent Transactions</h2>
+              <div className="close" onClick={this.closeInfo}>+</div>
+            </div>
           <p>
-            {this.props.model.client ? "" : "Loading session... 🐝"}
-            {this.props.model.message}
+            In this demo, selling an item involves updating a handful of database records.
+            If any one of these updates were to fail, it could leave the database in an
+            inconsistent state. When you are buying and selling, you have to be able to
+            trust your database.
           </p>
+          <p>
+            The transaction includes these operations:
+            <ul>
+              <li>Check the credit balance of the purchasing player to ensure they have available funds.</li>
+              <li>Check that the item is for sale.</li>
+              <li>Update the balances of the selling player and the purchasing player.</li>
+              <li>Update the item with the new owner.</li>
+              <li>Write a purchase record.</li>
+            </ul>
+            If any one of these operations fails, for instance because the player is
+            making multiple trades at the same time and exceeds their balance, the
+            entire transaction must fail. This also holds true in cases of hardware or
+            network failure. So you know that any data you read or write to FaunaDB
+            is consistent, taking the guesswork out of writing correct applications.
+          </p>
+          </div>
+          </ReactModal>
+        <section className="instructions">
+          <h2>How To Play</h2>
+          <p>Drag For-Sale Items to Players to sell that item to the player (if they have sufficient funds).</p>
+          <p>Click on small items in Player's inventory to set their price and sale status.</p>
+        </section>
+        <section className="game">
           <PurchaseLog model={this.props.model}/>
-          <ForSale model={this.props.model} items={this.props.model.items}/>
-          <Players model={this.props.model}/>
-        </div>
+          <div className="gameboard">
+            <p className="notification">
+              {this.props.model.client ? "" : "Loading session... 🐝"}
+              {this.props.model.message}
+            </p>        
+            <ForSale model={this.props.model} items={this.props.model.items}/>
+            <Players model={this.props.model}/>
+
+          </div>
+        </section>
+        </main>
       </div>
     );
   }
