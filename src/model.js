@@ -90,7 +90,8 @@ export default class Model {
     );
   }
 
-  // Lifecycle hook that allows
+  // Lifecycle hook that runs all the read-only queries to refresh local data.
+  // Call `inform()` when it's done, which triggers a re-render.
   refresh(message) {
     Promise.all([
       this.queryItemsForSale().then(({data: items}) => this.items = items),
@@ -106,11 +107,14 @@ export default class Model {
     });
   }
 
+  // Remove an item temporarily in the in-memory list of forSale items.
+  // This data is replaced after refresh, so it's just for an interm UI paint.
   setSellingState(item, player) {
     console.log("setSellingState", this.items.indexOf(item, this.items), item, this.items)
     this.items.splice(this.items.indexOf(item, this.items), 1);
   }
 
+  // Sets up the "about to sell" state and then triggers the purchase transaction.
   sell(item, player) {
     // todo set preliminary "waiting" state of success and be ready to remove it on error.
     this.setSellingState(item, player);
@@ -121,6 +125,7 @@ export default class Model {
     });
   }
 
+  // Mark an item for sale
   makeForSale(item, stringPrice, isForSale) {
     const price = parseInt(stringPrice, 10)
     if (isNaN(price) || price < 0)  {
@@ -133,6 +138,10 @@ export default class Model {
     });
   }
 
+  // The either connects to an existing session (stored in location.hash) or
+  // asks the REACT_APP_SESSION_ENDPOINT for a new session.
+  // See the code in `session-service/handler.js` to see how to provision a
+  // FaunaDB database for anonymous SaaS trial users.
   setupSession() {
     var secret = window.location.hash;
     if (secret) {
@@ -156,7 +165,7 @@ export default class Model {
       });
     }
   }
-  // "private" functions
+  // Load the list of transactions from the purchase history class.
   listPurchases() {
     return this.client.query(
       q.Map(
@@ -180,6 +189,7 @@ export default class Model {
     );
   }
 
+  // List the players in the database.
   listPlayers() {
     return this.client.query(
       q.Map(
@@ -189,6 +199,7 @@ export default class Model {
     );
   }
 
+  // Query used by the makeForSale function
   runMakeForSaleQuery(item, newPrice, isForSale) {
     return this.client.query(q.Update(item.ref, {
       data : {
@@ -198,6 +209,7 @@ export default class Model {
     }))
   }
 
+  // List the items owned by the players.
   queryPlayerItems(players) {
     const refs = players.map((p) => p.ref);
     console.log("queryPlayerItems", refs);
@@ -209,6 +221,7 @@ export default class Model {
     );
   }
 
+  // List all the for sale items.
   queryItemsForSale() {
     return this.client.query(
       q.Map(
