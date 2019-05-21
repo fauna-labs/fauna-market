@@ -99,7 +99,7 @@ class Player extends Component {
       <ul className="ownedItems">
         {items.map((item) =>
           <li key={item.data.label} className={item.data.for_sale ? "forSale" : "isnotForSale"}>
-            <DraggableInventory value="sell" label={item.data.label} item={item} model={this.props.model}/>
+            <Inventory value="sell" label={item.data.label} item={item} model={this.props.model}/>
           </li>
         )}
       </ul>
@@ -155,11 +155,19 @@ const propTypes = {
 
 
 class Inventory extends Component {
+  constructor () {
+    super();
+    this.putItemOnSale = this.putItemOnSale.bind(this);
+  }
+  putItemOnSale() {
+    var price = prompt("Choose a sale price.")
+    this.props.model.makeForSale(this.props.item, price, true);
+  }
   render() {
-    const { isDragging, connectDragSource, label } = this.props;
-    return connectDragSource(
-      <div style={{ opacity: isDragging ? 0.5 : 1 }}>
-        <div className="label">{label}<span className="sell">Sell</span></div>
+    const { label } = this.props;
+    return (
+      <div>
+        <div className="label">{label}<span className="sell" onClick={this.putItemOnSale}>Sell</span></div>
       </div>
     );
   }
@@ -168,4 +176,4 @@ class Inventory extends Component {
 Inventory.propTypes = propTypes;
 
 // Export the wrapped component:
-const DraggableInventory =  DragSource("inventory", inventorySource, collectInventory)(Inventory);
+// const DraggableInventory =  DragSource("inventory", inventorySource, collectInventory)(Inventory);
