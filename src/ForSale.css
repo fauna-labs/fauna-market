@@ -1,15 +1,9 @@
 .ForSale {
-  text-align: center;
+  margin-bottom: 40px;
 }
 
-.ForSale li, .ownedItems li {
-  list-style: none;
-  padding: 12px;
-  border: 1px solid #cccccc;
-  margin: 0 5px 5px 0;
-  box-shadow: 1px 1px 4px #0000002e;
-  align-items: center;
-  cursor: pointer;
+.ForSale li {
+  min-width: 115px;
 }
 
 .ForSale li .label {

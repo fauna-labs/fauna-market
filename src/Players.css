@@ -1,9 +1,10 @@
 .Players li.Player {
   list-style: none;
   width: 33.33%;
-  text-align: center;
-  padding: 0 10px;
-  border-right: 1px solid #ccc;
+}
+
+.Players li.Player p {
+  margin-bottom: 10px;
 }
 
 .Players li.Player:last-of-type {
@@ -18,7 +19,6 @@
 .ownedItems {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .ownedItems li {

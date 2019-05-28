@@ -24,12 +24,12 @@ class ForSaleList extends Component {
     const { connectDropTarget, items, model } = this.props;
     return connectDropTarget(
       <div className="ForSale">
-        <h3>Items for Sale</h3>
+        <h3>Marketplace Items</h3>
         <ul className="itemsForSale">
         {items.map((item) =>
           <li key={item.data.label}>
             <DraggableForSale model={model} label={item.data.label} item={item}/>
-            <div>Price: ${item.data.price}</div>
+            <h4>Price: ${item.data.price}</h4>
             <div>Seller: {item.data.owner_name}</div>
           </li>
         )}

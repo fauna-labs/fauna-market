@@ -30,7 +30,7 @@ class App extends Component {
         <header>
           <div className="brand">
             <img src={logo} className="App-logo" alt="FaunaDB hummingbird logo" />
-            <p>Animal Exchange</p>
+            <p>Market</p>
           </div>
           <div className="utility">
             <div className="info" onClick={this.openInfo}>
@@ -73,11 +73,9 @@ class App extends Component {
           </ReactModal>
         <section className="instructions">
           <h2>How To Play</h2>
-          <p>Drag For-Sale Items to Players to sell that item to the player (if they have sufficient funds).</p>
-          <p>Click on small items in Player's inventory to set their price and sale status.</p>
+          <p>To sell an item from the Marketplace to a player, simply drag it to the player. To put a new item up for sale, simply click it and set the price.</p>
         </section>
         <section className="game">
-          <PurchaseLog model={this.props.model}/>
           <div className="gameboard">
             <p className="notification">
               {this.props.model.client ? "" : "Loading session... 🐝"}
@@ -85,8 +83,8 @@ class App extends Component {
             </p>        
             <ForSale model={this.props.model} items={this.props.model.items}/>
             <Players model={this.props.model}/>
-
           </div>
+          <PurchaseLog model={this.props.model}/>
         </section>
         </main>
       </div>

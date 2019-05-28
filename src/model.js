@@ -22,7 +22,7 @@ export default class Model {
     console.log("inform", this);
     this.onChanges.forEach((cb) => cb());
   }
-  // The core transactional logic. See docs.fauna.com for a detailed walkthrough
+  // The core transactional logic. See docs.fauna.com for a detailed walkthrough: https://docs.fauna.com/fauna/2.7.0/whitepapers/eval_guide/example-code.html
   transactItem(item, player) {
     return this.client.query(
       q.Let({
@@ -31,9 +31,9 @@ export default class Model {
         item : q.Get(item.ref)
       }, q.Let({
         // Load the seller account and set the transaction price.
-        isForSale : q.Select(["data", "for_sale"], q.Var("item")),
-        itemPrice : q.Select(["data", "price"], q.Var("item")),
         buyerBalance : q.Select(["data", "credits"], q.Var("buyer")),
+        itemPrice : q.Select(["data", "price"], q.Var("item")),
+        isForSale : q.Select(["data", "for_sale"], q.Var("item")),
         seller : q.Get(q.Select(["data", "owner"], q.Var("item")))
       },
         // Check that the item is for sale.

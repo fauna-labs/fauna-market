@@ -14,9 +14,9 @@ export default class PurchaseLog extends Component {
         {this.props.model.purchases.map((item) =>
           <li key={item.key}>
 
-            ¤{item.price}&nbsp;{item.label}&nbsp;
+            ${item.price}&nbsp;{item.label}&nbsp;
 
-            {item.seller}&nbsp;->&nbsp;{item.buyer}
+            {item.seller}&nbsp;&rarr;&nbsp;{item.buyer}
           </li>
         )}
         </ul>

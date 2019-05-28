@@ -1,16 +1,39 @@
-.App * {
+body { 
+  color: #444547;
 }
 
-header, main {
+header, section {
   padding: 0 50px;
 }
 
-ul {
+header p {
+  color: #fff;
+}
+
+p, ul {
   padding: 0;
+  margin: 0;
+}
+
+h4 {
+  margin: 0 0 6px 0;
 }
 
 main, .instructions {
   flex-direction: column;
+}
+
+.instructions {
+  padding-top: 15px;
+  padding-bottom: 30px;
+  background: #fff;
+}
+
+.game {
+  padding-top: 20px;
+  padding-bottom: 50px;
+  margin: 0 50px;
+  background: #f8f8f8;
 }
 
 .App-logo {
@@ -54,13 +77,12 @@ header {
 .itemsForSale {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
 }
 
 .notification {
-  background: rgba(0,0,0,0.04);
+  /* background: rgba(0,0,0,0.04);
   border: 1px solid rgba(90, 57, 57, 0.08);
-  padding: 4px 20px;
+  padding: 4px 20px; */
 }
 
 .modal-header {
@@ -75,4 +97,23 @@ header {
   width: 40px;
   font-weight: 100;
   color: rgba(0,0,0,.7);
+}
+
+.ForSale li, .ownedItems li {
+  background: #fff;
+  list-style: none;
+  padding: 12px;
+  border: 1px solid #cccccc;
+  margin: 0 5px 5px 0;
+  box-shadow: 1px 1px 4px #0000002e;
+  align-items: center;
+  cursor: pointer;
+}
+
+.ReactModalPortal ul, p {
+  padding: 10px 0;
+}
+
+.ReactModalPortal ul {
+  padding-left: 18px;
 }
