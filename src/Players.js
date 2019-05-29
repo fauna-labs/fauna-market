@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { DragSource } from 'react-dnd';
+// import { DragSource } from 'react-dnd';
 import { DropTarget } from 'react-dnd';
 import PropTypes from 'prop-types';
 import './Players.css';
@@ -111,37 +111,37 @@ const DropTargetPlayer = DropTarget("forSale", playerTarget, collect)(Player);
 
 
 
-const inventorySource = {
-  beginDrag(props) {
-    return {
-      label: props.label,
-      item : props.item
-    };
-  },
-  endDrag(props, monitor) {
-    const result = monitor.getDropResult();
-    console.log('endDrag', props, result)
-    if (result) {
-      console.log("dragged", props.model, props.item, result)
-      var price = prompt("Choose a sale price.")
-      props.model.makeForSale(props.item, price, true);
-    }
-    return {
-      label: props.label,
-      item : props.item
-    }
-  }
-};
+// const inventorySource = {
+//   beginDrag(props) {
+//     return {
+//       label: props.label,
+//       item : props.item
+//     };
+//   },
+//   endDrag(props, monitor) {
+//     const result = monitor.getDropResult();
+//     console.log('endDrag', props, result)
+//     if (result) {
+//       console.log("dragged", props.model, props.item, result)
+//       var price = prompt("Choose a sale price.")
+//       props.model.makeForSale(props.item, price, true);
+//     }
+//     return {
+//       label: props.label,
+//       item : props.item
+//     }
+//   }
+// };
 
 /**
  * Specifies the props to inject into your component.
  */
-function collectInventory(connect, monitor) {
-  return {
-    connectDragSource: connect.dragSource(),
-    isDragging: monitor.isDragging()
-  };
-}
+// function collectInventory(connect, monitor) {
+//   return {
+//     connectDragSource: connect.dragSource(),
+//     isDragging: monitor.isDragging()
+//   };
+// }
 
 const propTypes = {
   label: PropTypes.string.isRequired,
