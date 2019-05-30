@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import logo from './assets/logo.svg';
+import './assets/app.css';
 import { DragDropContext } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import ReactModal from 'react-modal';
@@ -29,8 +29,8 @@ class App extends Component {
       <div className="App">
         <header>
           <div className="brand">
-            <img src={logo} className="App-logo" alt="FaunaDB hummingbird logo" />
-            <p>Animal Exchange</p>
+            <img src={logo} className="logo" alt="FaunaDB hummingbird logo" />
+            <p>Market</p>
           </div>
           <div className="utility">
             <div className="info" onClick={this.openInfo}>
@@ -42,50 +42,59 @@ class App extends Component {
           <ReactModal
             isOpen={this.state.showModal}
             contentLabel="Globally Consistent Transactions"
+            style="color:red;"
+            className="modal"
+            overlayClassName="modal-overlay"
           >
-          <div>
             <div className="modal-header">
               <h2>Globally Consistent Transactions</h2>
-              <div className="close" onClick={this.closeInfo}>+</div>
+              <div className="close" onClick={this.closeInfo}><div>+</div></div>
             </div>
-          <p>
-            In this demo, selling an item involves updating a handful of database records.
-            If any one of these updates were to fail, it could leave the database in an
-            inconsistent state. When you are buying and selling, you have to be able to
-            trust your database.
-          </p>
-          <p>
-            The transaction includes these operations:
-            <ul>
-              <li>Check the credit balance of the purchasing player to ensure they have available funds.</li>
-              <li>Check that the item is for sale.</li>
-              <li>Update the balances of the selling player and the purchasing player.</li>
-              <li>Update the item with the new owner.</li>
-              <li>Write a purchase record.</li>
-            </ul>
-            If any one of these operations fails, for instance because the player is
-            making multiple trades at the same time and exceeds their balance, the
-            entire transaction must fail. This also holds true in cases of hardware or
-            network failure. So you know that any data you read or write to FaunaDB
-            is consistent, taking the guesswork out of writing correct applications.
-          </p>
-          </div>
+            <p>
+              In this demo, selling an item involves updating a handful of database records.
+              If any one of these updates were to fail, it could leave the database in an
+              inconsistent state. When you are buying and selling, you have to be able to
+              trust your database.
+            </p>
+            <p>
+              The transaction includes these operations:
+              <ul>
+                <li>Check the credit balance of the purchasing player to ensure they have available funds.</li>
+                <li>Check that the item is for sale.</li>
+                <li>Update the balances of the selling player and the purchasing player.</li>
+                <li>Update the item with the new owner.</li>
+                <li>Write a purchase record.</li>
+              </ul>
+            </p>
+            <p>
+              If any one of these operations fails, for instance because the player is
+              making multiple trades at the same time and exceeds their balance, the
+              entire transaction must fail. This also holds true in cases of hardware or
+              network failure. So you know that any data you read or write to FaunaDB
+              is consistent, taking the guesswork out of writing correct applications.
+            </p>
+            <p>
+              <a href="http://docs.fauna.com" target="_blank">Detailed code walkthrough</a>
+            </p>
           </ReactModal>
         <section className="instructions">
           <h2>How To Play</h2>
-          <p>Drag For-Sale Items to Players to sell that item to the player (if they have sufficient funds).</p>
-          <p>Click on small items in Player's inventory to set their price and sale status.</p>
+          <p>To sell an item from the Marketplace to a player, simply drag it to the player. To sell a player's item, simply click it and set the price.</p>
         </section>
         <section className="game">
-          <PurchaseLog model={this.props.model}/>
-          <div className="gameboard">
-            <p className="notification">
-              {this.props.model.client ? "" : "Loading session... 🐝"}
-              {this.props.model.message}
-            </p>        
-            <ForSale model={this.props.model} items={this.props.model.items}/>
-            <Players model={this.props.model}/>
-
+          { this.props.model.message && this.props.model.message ? (
+              <p className="notification">
+                {this.props.model.client ? "" : "Loading session... 🐝"}
+                {this.props.model.message}
+              </p>      
+            ) : ''
+          }  
+          <div class="gameboard">
+            <div className="market-and-players">
+              <ForSale model={this.props.model} items={this.props.model.items}/>
+              <Players model={this.props.model}/>
+            </div>
+            <PurchaseLog model={this.props.model}/>
           </div>
         </section>
         </main>

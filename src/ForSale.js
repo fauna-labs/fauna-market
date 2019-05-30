@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
 import { DropTarget } from 'react-dnd';
-
-import './ForSale.css';
+import dragIcon from './assets/drag-icon.svg';
 
 const forSaleListTarget = {
   drop(props) {
@@ -24,13 +23,11 @@ class ForSaleList extends Component {
     const { connectDropTarget, items, model } = this.props;
     return connectDropTarget(
       <div className="ForSale">
-        <h3>Items for Sale</h3>
+        <h3>Marketplace Items</h3>
         <ul className="itemsForSale">
         {items.map((item) =>
-          <li key={item.data.label}>
-            <DraggableForSale model={model} label={item.data.label} item={item}/>
-            <div>Price: ${item.data.price}</div>
-            <div>Seller: {item.data.owner_name}</div>
+          <li className="tile" key={item.data.label}>
+            <DraggableForSale model={model} data={item.data} item={item}/>
           </li>
         )}
         </ul>
@@ -92,10 +89,15 @@ const propTypes = {
 
 class ForSale extends Component {
   render() {
-    const { isDragging, connectDragSource, label } = this.props;
+    const { isDragging, connectDragSource, data } = this.props;
     return connectDragSource(
       <div style={{ opacity: isDragging ? 0.5 : 1 }}>
-        <div className="label">{label}</div>
+        <span className="drag-icon"><img src={dragIcon} alt="Click and Drag" /></span>
+        <div className="thumbnail">{data.label}</div>
+        <div className="tile-text">
+          <div><span className="label">Price</span><div className="money">${data.price}</div></div>
+          <div><span className="label">Seller</span><div>{data.owner_name}</div></div>
+        </div>
       </div>
     );
   }

@@ -22,7 +22,7 @@ export default class Model {
     console.log("inform", this);
     this.onChanges.forEach((cb) => cb());
   }
-  // The core transactional logic. See docs.fauna.com for a detailed walkthrough
+  // The core transactional logic. See docs.fauna.com for a detailed walkthrough: https://docs.fauna.com/fauna/2.7.0/whitepapers/eval_guide/example-code.html
   transactItem(item, player) {
     return this.client.query(
       q.Let({
@@ -31,14 +31,14 @@ export default class Model {
         item : q.Get(item.ref)
       }, q.Let({
         // Load the seller account and set the transaction price.
-        isForSale : q.Select(["data", "for_sale"], q.Var("item")),
-        itemPrice : q.Select(["data", "price"], q.Var("item")),
         buyerBalance : q.Select(["data", "credits"], q.Var("buyer")),
+        itemPrice : q.Select(["data", "price"], q.Var("item")),
+        isForSale : q.Select(["data", "for_sale"], q.Var("item")),
         seller : q.Get(q.Select(["data", "owner"], q.Var("item")))
       },
         // Check that the item is for sale.
         q.If(q.Not(q.Var("isForSale")),
-          "purchase failed: item not for sale",
+          "Purchase failed: item not for sale",
           q.If(q.Equals(q.Select("ref", q.Var("buyer")), q.Select("ref", q.Var("seller"))),
             // Attempting to buy an item you are selling, removes it from sale
             q.Do(
@@ -47,12 +47,12 @@ export default class Model {
                   for_sale : false
                 }
               }),
-              "item removed from sale"
+              "Item removed from sale"
             ),
             // Check the credit balance of the purchasing player to ensure
             // they have available funds.
             q.If(q.LT(q.Var("buyerBalance"), q.Var("itemPrice")),
-              "purchase failed: insufficient funds",
+              "Purchase failed: insufficient funds",
               // All clear! Preconditions passed.
               q.Do(
                 // Write a purchase record.
@@ -82,7 +82,7 @@ export default class Model {
                     for_sale : false
                   }
                 }),
-                "purchase success"
+                "Purchase success!"
               )
             )
           )
