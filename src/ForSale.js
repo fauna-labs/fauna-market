@@ -27,11 +27,7 @@ class ForSaleList extends Component {
         <ul className="itemsForSale">
         {items.map((item) =>
           <li className="tile" key={item.data.label}>
-            <DraggableForSale model={model} label={item.data.label} item={item}/>
-            <div className="tile-text">
-              <div><span className="label">Price</span><div className="money">${item.data.price}</div></div>
-              <div><span className="label">Seller</span><div>{item.data.owner_name}</div></div>
-            </div>
+            <DraggableForSale model={model} data={item.data} item={item}/>
           </li>
         )}
         </ul>
@@ -93,11 +89,15 @@ const propTypes = {
 
 class ForSale extends Component {
   render() {
-    const { isDragging, connectDragSource, label } = this.props;
+    const { isDragging, connectDragSource, data } = this.props;
     return connectDragSource(
       <div style={{ opacity: isDragging ? 0.5 : 1 }}>
         <span className="drag-icon"><img src={dragIcon} alt="Click and Drag" /></span>
-        <div className="thumbnail">{label}</div>
+        <div className="thumbnail">{data.label}</div>
+        <div className="tile-text">
+          <div><span className="label">Price</span><div className="money">${data.price}</div></div>
+          <div><span className="label">Seller</span><div>{data.owner_name}</div></div>
+        </div>
       </div>
     );
   }
