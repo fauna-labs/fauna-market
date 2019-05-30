@@ -1,9 +1,5 @@
 import React, { Component } from 'react';
 
-import './PurchaseLog.css';
-
-
-
 export default class PurchaseLog extends Component {
   render() {
 
@@ -13,10 +9,8 @@ export default class PurchaseLog extends Component {
         <ul>
         {this.props.model.purchases.map((item) =>
           <li key={item.key}>
-
-            ${item.price}&nbsp;{item.label}&nbsp;
-
-            {item.seller}&nbsp;&rarr;&nbsp;{item.buyer}
+            <div><span className="money">${item.price}</span>{item.label}</div>
+            <div>{item.seller}&nbsp;&rarr;&nbsp;{item.buyer}</div>
           </li>
         )}
         </ul>

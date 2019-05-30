@@ -2,8 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { DragSource } from 'react-dnd';
 import { DropTarget } from 'react-dnd';
-
-import './ForSale.css';
+import dragIcon from './assets/drag-icon.svg';
 
 const forSaleListTarget = {
   drop(props) {
@@ -27,10 +26,12 @@ class ForSaleList extends Component {
         <h3>Marketplace Items</h3>
         <ul className="itemsForSale">
         {items.map((item) =>
-          <li key={item.data.label}>
+          <li className="tile" key={item.data.label}>
             <DraggableForSale model={model} label={item.data.label} item={item}/>
-            <h4>Price: ${item.data.price}</h4>
-            <div>Seller: {item.data.owner_name}</div>
+            <div className="tile-text">
+              <div><span className="label">Price</span><div className="money">${item.data.price}</div></div>
+              <div><span className="label">Seller</span><div>{item.data.owner_name}</div></div>
+            </div>
           </li>
         )}
         </ul>
@@ -95,7 +96,8 @@ class ForSale extends Component {
     const { isDragging, connectDragSource, label } = this.props;
     return connectDragSource(
       <div style={{ opacity: isDragging ? 0.5 : 1 }}>
-        <div className="label">{label}</div>
+        <span className="drag-icon"><img src={dragIcon} alt="Click and Drag" /></span>
+        <div className="thumbnail">{label}</div>
       </div>
     );
   }

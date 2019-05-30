@@ -38,7 +38,7 @@ export default class Model {
       },
         // Check that the item is for sale.
         q.If(q.Not(q.Var("isForSale")),
-          "purchase failed: item not for sale",
+          "Purchase failed: item not for sale",
           q.If(q.Equals(q.Select("ref", q.Var("buyer")), q.Select("ref", q.Var("seller"))),
             // Attempting to buy an item you are selling, removes it from sale
             q.Do(
@@ -47,12 +47,12 @@ export default class Model {
                   for_sale : false
                 }
               }),
-              "item removed from sale"
+              "Item removed from sale"
             ),
             // Check the credit balance of the purchasing player to ensure
             // they have available funds.
             q.If(q.LT(q.Var("buyerBalance"), q.Var("itemPrice")),
-              "purchase failed: insufficient funds",
+              "Purchase failed: insufficient funds",
               // All clear! Preconditions passed.
               q.Do(
                 // Write a purchase record.
@@ -82,7 +82,7 @@ export default class Model {
                     for_sale : false
                   }
                 }),
-                "purchase success"
+                "Purchase success!"
               )
             )
           )

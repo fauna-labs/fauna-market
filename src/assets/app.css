@@ -1,0 +1,325 @@
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  color: #444547;
+}
+
+body * {
+  box-sizing: border-box;
+}
+
+header, section {
+  padding: 0 5%;
+}
+
+p, ul {
+  padding: 0;
+  margin: 0;
+  line-height: 1.5;
+}
+
+h4 {
+  margin: 0 0 6px 0;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/* Nav */
+
+header {
+  background-color: #6474af;
+  color: white;
+  display: flex;
+  font-weight: 200;
+  justify-content: space-between;
+  align-items: center;
+  height: 50px;
+}
+
+.brand {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  height: 28px;
+  border-right: 1px solid rgba(255, 255, 255, 0.5);
+  padding-right: 15px;
+}
+
+.brand p {
+  padding-left: 15px;
+}
+
+.utility {
+  height: 100%;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+}
+
+/* Modal */
+
+.modal {
+  background: white;
+  max-width: 800px;
+  position: relative;
+  top: 50px;
+  margin: 0 auto;
+  padding: 2% 5% 3% 5%;
+  border: 1px solid #eaeaea;
+  outline: 0;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.modal p {
+  padding: 10px 0;
+}
+
+.modal ul {
+  padding: 0px 0 0px 18px;
+  list-style-type: disc;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.close {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 60px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.close div {
+  transform: rotate(45deg);
+  font-size: 2.5rem;
+  font-weight: 100;
+  opacity: 0.6;
+}
+
+/* Layout & shared */
+
+main, .instructions {
+  flex-direction: column;
+}
+
+.instructions {
+  padding-top: 15px;
+  padding-bottom: 30px;
+  background: #fff;
+}
+
+.game {
+  background: #f8f8f8;
+  padding: 0;
+}
+
+.gameboard {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+.market-and-players {
+  flex: 1;
+}
+
+.gameboard, .notification {
+  padding: 2% 5%;
+}
+
+@media screen and (min-width:768px) {
+  .game {
+    margin: 0 5%;
+  }
+  .gameboard {
+    flex-direction: row;
+  }
+}
+
+.notification, .tile-text {
+  background: #717584;
+  color: #fff;
+}
+
+.tile {
+  background: #fff;
+  border-radius: 10px;
+  list-style: none;
+  padding: 0;
+  margin: 0 5% 5% 0;
+  box-shadow: 1px 1px 4px #0000002e;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.tile .thumbnail {
+  font-size: 500%;
+  min-width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 84px;
+  padding: 22px 12px 34px;
+}
+
+.tile-text {
+  display: flex;
+  justify-content: space-between;
+  border-radius: 0px 0px 10px 10px;
+  padding: 2px 15px 6px;
+  width: 100%;
+}
+
+.tile-text .label {
+  color: #B5B5B5;
+  font-size: 9px;
+  letter-spacing: 0.2px;
+}
+
+.tile-text .money {
+  color: #00E394;
+}
+
+/* Marketplace items */
+
+.drag-icon {
+  float: right;
+  border-radius: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+  position: relative;
+}
+
+.drag-icon img {
+  width: 18px;
+}
+
+.ForSale {
+  margin-top: 10%;
+}
+
+@media screen and (min-width:768px) {
+  .ForSale {
+    margin: 0;
+  }
+}
+
+.itemsForSale {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Purchase log */
+
+.PurchaseLog li {
+  background: white;
+  padding: 8px;
+  border-bottom: 1px solid #e8e8e8;
+  display: flex;
+  align-items: center;
+  width: 230px;
+}
+
+.PurchaseLog li div {
+  padding: 0 10px;
+  min-width: 90px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Players */
+
+.Players {
+  margin-top: 5%;
+}
+
+.playerList {
+  display: flex;
+}
+
+.playerList .tile {
+  box-shadow: none;
+}
+
+.playerList .tile-text {
+  box-shadow: none;
+}
+
+.playerList .tile-text>div:nth-child(1) {
+  padding-right: 20px;
+  display: flex;
+  align-items: center;
+  font-size: 20px;
+  position: relative;
+  top: 2px;
+}
+
+.ownedItems {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 14px 10px;
+  height: 100%;
+}
+
+.ownedItems .forSale {
+  display: none;
+}
+
+.ownedItems .sell:hover {
+  content:'SELL';
+  color: #e85757;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: .5px;
+}
+
+.isNotForSale .label, 
+.isNotForSale .label:after {
+  font-size: 170%;
+  height: 44px;
+  width: 44px;
+  box-shadow: 1px 1px 4px #0000002e;
+  border-radius: 6px;
+  display: flex;
+  margin: 6px;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.isNotForSale:hover .label:after {
+  background: #dc4040f0;
+  content: 'SELL';
+  position: absolute;
+  font-size: 13px;
+  color: white;
+  margin: 0;
+  letter-spacing: .5px;
+}

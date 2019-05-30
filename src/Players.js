@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { DragSource } from 'react-dnd';
 import { DropTarget } from 'react-dnd';
 import PropTypes from 'prop-types';
-import './Players.css';
 import ReactModal from 'react-modal';
 
 const playerTarget = {
@@ -24,6 +23,7 @@ class Players extends Component {
 
     return (
       <div className="Players">
+        <h3>Players</h3>
         <ul className="playerList">
         {this.props.model.players.map((player, i) =>
           <DropTargetPlayer key={player.data.name} model={this.props.model} player={player} items={this.props.model.ownedItems[i]} />
@@ -78,7 +78,7 @@ class Player extends Component {
     const { player, key, items, connectDropTarget } = this.props;
     const itemToSell = this.state.itemToSell;
     return connectDropTarget(
-    <li className="Player" key={key}>
+    <li className="tile" key={key}>
       <ReactModal
          isOpen={this.state.showModal}
          contentLabel="Sell Your Item">
@@ -94,15 +94,17 @@ class Player extends Component {
          <br/>
          <a href="#notsell" onClick={this.notForSale}>Make Not For Sale</a>
       </ReactModal>
-      <h4>{player.data.name}</h4>
-      <p>Balance: ${player.data.credits}</p>
       <ul className="ownedItems">
         {items.map((item) =>
-          <li key={item.data.label} className={item.data.for_sale ? "forSale" : "isnotForSale"}>
+          <li key={item.data.label} className={item.data.for_sale ? "forSale" : "isNotForSale"}>
             <Inventory value="sell" label={item.data.label} item={item} model={this.props.model}/>
           </li>
         )}
       </ul>
+      <div className="tile-text">
+        <div>{player.data.name}</div>
+        <div><span className="label">Balance</span><div className="money">${player.data.credits}</div></div>
+      </div>
     </li>);
   }
 }
@@ -151,9 +153,6 @@ const propTypes = {
   connectDragSource: PropTypes.func.isRequired
 };
 
-// <div className="label" onClick={this.openSaleSettings.bind(this, item)}>{item.data.label}</div>
-
-
 class Inventory extends Component {
   constructor () {
     super();
@@ -166,9 +165,7 @@ class Inventory extends Component {
   render() {
     const { label } = this.props;
     return (
-      <div>
-        <div className="label">{label}<span className="sell" onClick={this.putItemOnSale}>Sell</span></div>
-      </div>
+      <div className="label" onClick={this.putItemOnSale}>{label}</div>
     );
   }
 }
