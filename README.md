@@ -1,6 +1,6 @@
-# Animal Exchange
+# Fauna Market
 
-A distributed pet store example for FaunaDB.
+A distributed store example for FaunaDB.
 
 ## About the demo
 
