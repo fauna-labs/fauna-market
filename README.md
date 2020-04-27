@@ -28,8 +28,8 @@ is consistent, taking the guesswork out of writing correct applications.
 Just clone this repo, install the dependencies, and launch the server.
 
 ```sh
-git clone https://github.com/fauna/animal-exchange
-cd animal-exchange
+git clone git@github.com:fauna/fauna-market.git
+cd fauna-market
 npm install
 npm start
 ```
